@@ -77,3 +77,25 @@ HumanoidSettingsTab:CreateSlider({
         tpWalkSpeed = Value
     end
 })
+
+local EspTab = window:CreateTab("ESP")
+
+local xrayEnabled = false
+
+local xray = function()
+    for _, xray in pairs(workspace:GetDescendants()) do
+        if xray:IsA("BasePart") and not xray.Parent:FindFirstChildWhichIsA("Humanoid") and not xray.Parent.Parent:FindFirstChildWhichIsA("Humanoid") then
+            xray.LocalTransparencyModifier = xrayEnabled and 0.5 or 0
+        end
+    end
+end
+
+local XrayToggle = EspTab:CreateToggle({
+    Name = "Xray",
+    CurrentValue = false,
+    Flag = "XrayToggle",
+    Callback = function(Value)
+        xrayEnabled = Value
+        xray()
+    end
+})  
