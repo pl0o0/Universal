@@ -99,3 +99,19 @@ local XrayToggle = EspTab:CreateToggle({
         xray()
     end
 })  
+
+local InfJumpToggle = HumanoidSettingsTab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = false,
+    Flag = "InfJump",
+    Callback = function(InfiniteJumpEnabled)
+        local InfiniteJumpEnabled = true
+        game:GetService("UserInputService").JumpRequest:connect(function()
+            local chara = game:GetService("Players").LocalPlayer.Character
+            if InfiniteJumpEnabled then
+                local humanoid = chara:FindFirstChildOfClass("Humanoid")
+                humanoid:ChangeState("Jumping")
+            end
+        end)
+    end,
+})
